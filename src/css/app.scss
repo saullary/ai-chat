@@ -1,0 +1,68 @@
+@import "flex";
+@import "pos";
+@import "box";
+@import "color";
+@import "text";
+@import "hljs";
+
+body {
+  min-height: 100vh;
+  background: #eceff7;
+  background: linear-gradient(135deg, #fbf6fe, #fff, #c6cedc);
+}
+
+.max-wrap {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+$bdc: #cbd5e1;
+.bd-1 {
+  border: 1px solid $bdc;
+}
+.bdb-1 {
+  border-bottom: 1px solid $bdc;
+}
+
+.hover-1 {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 0.85;
+  }
+}
+
+.s-mb-2 {
+  margin-bottom: 2px;
+}
+
+.q-message-sent {
+  margin-left: 40px;
+}
+.q-message {
+  // margin-right: 20px;
+  .q-message-container > div {
+    // width: 100%;
+    max-width: 600px;
+  }
+}
+.q-message-text {
+  min-width: 40px;
+}
+
+.anim_show {
+  animation: anim_show 2s ease infinite;
+}
+@keyframes anim_show {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
