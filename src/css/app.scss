@@ -16,9 +16,21 @@ body {
   margin: 0 auto;
 }
 
+.absolute-full {
+  & > .scroll,
+  .q-layout,
+  .q-page-container {
+    height: 100%;
+  }
+}
+
 $bdc: #cbd5e1;
 .bd-1 {
   border: 1px solid $bdc;
+}
+.bdr-1,
+.q-drawer--left.q-drawer--bordered {
+  border-right: 1px solid $bdc;
 }
 .bdb-1 {
   border-bottom: 1px solid $bdc;
@@ -65,4 +77,8 @@ $bdc: #cbd5e1;
   100% {
     opacity: 1;
   }
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
 }
