@@ -51,7 +51,7 @@ import drawerView from "./drawer-view.vue";
         <div class="d-flex h100p">
           <div class="h100p pa-1 bdr-1 al-c f-center hover-1" @click="onToggle">
             <img
-              src="/img/arrow-left.svg"
+              src="/img/ic-left.svg"
               class="d-b"
               width="6px"
               :class="{

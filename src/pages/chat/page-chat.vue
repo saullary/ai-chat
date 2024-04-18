@@ -6,7 +6,7 @@ import ChatList from "./chat-list.vue";
   <div class="h-flex h100p">
     <div class="al-c pa-3 bdb-1">
       <span class="fz-18">Chat</span>
-      <q-select
+      <!-- <q-select
         style="width: 150px; height: 30px"
         class="ml-auto"
         v-model="apiKey"
@@ -14,7 +14,7 @@ import ChatList from "./chat-list.vue";
         dense
         :options="keyOpts"
         map-options
-      ></q-select>
+      ></q-select> -->
     </div>
 
     <q-scroll-area
