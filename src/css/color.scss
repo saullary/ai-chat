@@ -77,8 +77,8 @@
 .bg-gray {
   background: #949fba;
 }
-.bg-gray-e {
-  background: #eee;
+.bg-gray-f8 {
+  background: #f8fafc;
 }
 
 .bg-white-5 {
@@ -115,19 +115,21 @@
   background: #808080;
 }
 
-.red-1,
-.fail-1 {
-  color: #ff6960;
+$bdc: #cbd5e1;
+
+.bg-bd {
+  background: $bdc;
 }
-.warn-1 {
-  color: #f99536;
+.bd-1 {
+  border: 1px solid $bdc;
 }
-.suc-1 {
-  color: #00bd9a;
+.bdl-1 {
+  border-left: 1px solid $bdc;
 }
-.coin-1 {
-  color: #f9b045;
+.bdr-1,
+.q-drawer--left.q-drawer--bordered {
+  border-right: 1px solid $bdc;
 }
-.brown-1 {
-  color: #9a2c0e;
+.bdb-1 {
+  border-bottom: 1px solid $bdc;
 }

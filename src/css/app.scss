@@ -4,11 +4,20 @@
 @import "color";
 @import "text";
 @import "hljs";
+@import "anim";
 
 body {
   min-height: 100vh;
   background: #eceff7;
   background: linear-gradient(135deg, #fbf6fe, #fff, #c6cedc);
+}
+
+a {
+  color: #006eff;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .max-wrap {
@@ -22,18 +31,6 @@ body {
   .q-page-container {
     height: 100%;
   }
-}
-
-$bdc: #cbd5e1;
-.bd-1 {
-  border: 1px solid $bdc;
-}
-.bdr-1,
-.q-drawer--left.q-drawer--bordered {
-  border-right: 1px solid $bdc;
-}
-.bdb-1 {
-  border-bottom: 1px solid $bdc;
 }
 
 .hover-1 {
@@ -62,23 +59,4 @@ $bdc: #cbd5e1;
 }
 .q-message-text {
   min-width: 40px;
-}
-
-.anim_show {
-  animation: anim_show 2s ease infinite;
-}
-@keyframes anim_show {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.rotate-180 {
-  transform: rotate(180deg);
 }

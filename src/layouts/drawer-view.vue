@@ -15,7 +15,7 @@
     <div class="pa-3">
       <div class="bd-1 bg-white px-3 py-2 bdrs-6">
         <div class="al-c">
-          <jazz-icon hash="test" :size="28"></jazz-icon>
+          <jazz-icon hash="test"></jazz-icon>
           <span class="ml-2">Chat GPT-3.5</span>
         </div>
       </div>

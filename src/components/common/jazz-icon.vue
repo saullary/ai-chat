@@ -9,7 +9,7 @@ export default {
   props: {
     hash: String,
     size: {
-      default: 22,
+      default: 34,
       type: Number,
     },
   },

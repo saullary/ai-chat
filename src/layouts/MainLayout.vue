@@ -55,7 +55,7 @@ import drawerView from "./drawer-view.vue";
               class="d-b"
               width="6px"
               :class="{
-                'rotate-180': !isOpen,
+                'up-down': !isOpen,
               }"
             />
           </div>
