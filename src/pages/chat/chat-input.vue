@@ -30,9 +30,17 @@
       maxlength="1500"
       placeholder="Chat or prompt"
       @keyup.enter="onEnter"
+      @focus="isFoucs = true"
+      @blur="isFoucs = false"
     >
       <template #append>
-        <q-btn class="send-btn" round color="primary" dense :disable="!trimVal">
+        <q-btn
+          class="send-btn"
+          round
+          :color="trimVal ? 'primary' : 'info'"
+          dense
+          :disable="!trimVal"
+        >
           <img
             src="/img/send.svg"
             width="20"
@@ -49,6 +57,7 @@
 export default {
   data() {
     return {
+      isFoucs: false,
       inputVal: "",
       composing: false,
     };
@@ -58,11 +67,7 @@ export default {
       return this.inputVal.trim();
     },
   },
-  watch: {
-    composing() {
-      console.log(this.composing);
-    },
-  },
+  watch: {},
   mounted() {
     const input = this.$refs.input.nativeEl;
     input.addEventListener("compositionstart", () => {

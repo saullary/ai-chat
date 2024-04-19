@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     listRef = this.$refs.chatList;
-    this.scrollToBtm();
+    this.scrollToBtm(false);
   },
   methods: {
     onSend(val) {
