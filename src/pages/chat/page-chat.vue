@@ -1,5 +1,6 @@
 <script setup>
 import ChatList from "./chat-list.vue";
+import ChatInput from "./chat-input.vue";
 </script>
 
 <template>
@@ -25,6 +26,8 @@ import ChatList from "./chat-list.vue";
     >
       <chat-list />
     </q-scroll-area>
+
+    <chat-input />
   </div>
 </template>
 
