@@ -27,11 +27,13 @@ import ChatInput from "./chat-input.vue";
       <chat-list />
     </q-scroll-area>
 
-    <chat-input />
+    <chat-input @send="onSend" />
   </div>
 </template>
 
 <script>
+let listRef;
+
 export default {
   data() {
     return {
@@ -49,7 +51,22 @@ export default {
       },
     };
   },
+  mounted() {
+    listRef = this.$refs.chatList;
+    this.scrollToBtm();
+  },
   methods: {
+    onSend(val) {
+      console.log("send", val);
+    },
+    scrollToBtm(anim = true) {
+      this.$nextTick(() => {
+        const el = listRef.getScrollTarget();
+        const maxH = el.scrollHeight - el.clientHeight;
+        // listRef.getScroll().verticalSize
+        listRef.setScrollPosition("vertical", maxH, anim ? 160 : 0);
+      });
+    },
     onScroll(e) {
       // console.log(e.verticalPosition);
     },

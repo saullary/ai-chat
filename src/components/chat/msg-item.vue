@@ -29,10 +29,12 @@
       <jazz-icon hash="test1" />
     </div>
     <div class="ml-2">
-      <a class="al-c mb-1 hover-1 fz-13" href="/" target="_blank">
-        <span>ChatGPT 3.5</span>
-        <img src="/img/ic-link.svg" width="12" class="ml-2" />
-      </a>
+      <div class="d-flex mb-1">
+        <a class="al-c hover-1 fz-13" href="/" target="_blank">
+          <span>ChatGPT 3.5</span>
+          <img src="/img/ic-link.svg" width="12" class="ml-2" />
+        </a>
+      </div>
 
       <div class="d-flex bd-1 bdrs-8 ov-h msg-item-con">
         <div class="px-3 py-2 bg-gray-f8 fz-16">

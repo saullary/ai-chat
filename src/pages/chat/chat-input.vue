@@ -1,5 +1,8 @@
 <style lang="scss">
 .chat-input {
+  textarea {
+    max-height: 200px;
+  }
   .send-btn {
     transform: scale(0.86);
   }
@@ -30,7 +33,12 @@
     >
       <template #append>
         <q-btn class="send-btn" round color="primary" dense :disable="!trimVal">
-          <img src="/img/send.svg" width="20" />
+          <img
+            src="/img/send.svg"
+            width="20"
+            class="pos-r"
+            style="left: -1px"
+          />
         </q-btn>
       </template>
     </q-input>
@@ -42,6 +50,7 @@ export default {
   data() {
     return {
       inputVal: "",
+      composing: false,
     };
   },
   computed: {
@@ -49,9 +58,31 @@ export default {
       return this.inputVal.trim();
     },
   },
+  watch: {
+    composing() {
+      console.log(this.composing);
+    },
+  },
+  mounted() {
+    const input = this.$refs.input.nativeEl;
+    input.addEventListener("compositionstart", () => {
+      this.composing = true;
+    });
+    input.addEventListener("compositionend", () => {
+      setTimeout(() => {
+        this.composing = false;
+      }, 100);
+    });
+  },
   methods: {
     onEnter() {
-      console.log("eee");
+      if (this.composing) return;
+      if (!this.trimVal) {
+        this.inputVal = "";
+        return;
+      }
+      this.$emit("send", this.trimVal);
+      this.inputVal = "";
     },
   },
 };
