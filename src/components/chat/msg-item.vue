@@ -59,7 +59,7 @@
           </div>
 
           <div
-            class="bdl-1 expander al-c f-center bg-bd hover-1"
+            class="bdl-1 expander al-c f-center bg-bd hover-1 select-none"
             @click="isEpand = !isEpand"
           >
             <div class="h-flex ev-n">
@@ -86,7 +86,7 @@
         </div>
       </div>
 
-      <div class="mt-1 al-c gray">
+      <div class="mt-1 al-c gray op-9">
         <!-- <span>3.9s</span> -->
         <div class="ml-2 al-c hover-show">
           <img src="/img/ic-refresh.svg" width="14" class="hover-1" />
@@ -100,10 +100,15 @@
 
 <script>
 export default {
+  props: {
+    model: String,
+    msgId: String,
+  },
   data() {
     return {
       isEpand: false,
     };
   },
+  methods: {},
 };
 </script>

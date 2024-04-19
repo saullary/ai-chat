@@ -6,7 +6,7 @@ import ChatInput from "./chat-input.vue";
 <template>
   <div class="h-flex h100p">
     <div class="al-c pa-3 bdb-1">
-      <span class="fz-18">Chat</span>
+      <span class="fz-18 mr-auto">Chat</span>
       <!-- <q-select
         style="width: 150px; height: 30px"
         class="ml-auto"
@@ -16,6 +16,9 @@ import ChatInput from "./chat-input.vue";
         :options="keyOpts"
         map-options
       ></q-select> -->
+      <q-btn class="ml-3 bg-white bd-1" dense flat>
+        <img src="/img/ic-clear.svg" width="22" class="px-2p" />
+      </q-btn>
     </div>
 
     <q-scroll-area

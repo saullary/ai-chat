@@ -97,6 +97,9 @@ body {
 .nowrap {
   white-space: nowrap;
 }
+.select-none {
+  user-select: none;
+}
 .user-select {
   user-select: all;
 }
