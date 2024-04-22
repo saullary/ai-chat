@@ -1,7 +1,7 @@
 <template>
   <div class="pa-4">
-    <msg-sent></msg-sent>
-    <msg-item :modelId="i" v-for="i in checkModelIds" :key="i"></msg-item>
+    <msg-sent text="test"></msg-sent>
+    <msg-item :modelId="id" v-for="id in checkModelIds" :key="id"></msg-item>
   </div>
 </template>
 

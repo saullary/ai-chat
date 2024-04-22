@@ -13,7 +13,7 @@
           <q-btn icon="cached" size="sm" dense flat color="primary"></q-btn>
         </div>
         <div class="msg-sent-con bg-pink1 px-3 py-2 bdrs-8 fz-16">
-          <div>hello</div>
+          <div>{{ text }}</div>
         </div>
       </div>
     </div>
@@ -23,3 +23,11 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    text: String,
+  },
+};
+</script>

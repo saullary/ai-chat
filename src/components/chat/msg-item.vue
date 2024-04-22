@@ -32,14 +32,14 @@
 <template>
   <div class="d-flex msg-item mb-5 hover-wrap">
     <div>
-      <jazz-icon hash="test1" />
+      <jazz-icon :hash="modelId" />
     </div>
     <div class="ml-2">
       <div class="d-flex mb-1 fz-13">
         <a
           v-if="modelRow"
           class="al-c hover-1"
-          :href="$getHomeUrl('ai-rpc/model/' + encodeURIComponent(modelId))"
+          :href="$getHomeUrl('/ai-rpc/model/' + encodeURIComponent(modelId))"
           target="_blank"
         >
           <span>{{ modelRow.name }}</span>

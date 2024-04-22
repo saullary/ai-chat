@@ -59,6 +59,9 @@ export default {
     this.scrollToBtm(false);
   },
   methods: {
+    getKeys() {
+      // /rpc/ai/manager/keys
+    },
     onSend(val) {
       console.log("send", val);
     },
