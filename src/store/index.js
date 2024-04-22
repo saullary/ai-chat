@@ -26,6 +26,7 @@ const store = createStore({
     nowDate: new Date(),
     isFocus: true,
     showProgress: false,
+    checkModelIds: [],
   },
   getters: {},
   mutations: {

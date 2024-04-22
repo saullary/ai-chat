@@ -1,4 +1,4 @@
-const { VITE_MP_URL } = import.meta.env;
+const { VITE_AI_URL } = import.meta.env;
 
 export default {
   emits: ["output-msg"],
@@ -38,24 +38,17 @@ export default {
         finishModels: [...this.finishModels, this.model],
       });
     },
-    onAiChat(texts) {
-      if (!texts) {
-        this.resMsg = "Loading";
-        return;
-      }
+    fetchAi() {
       try {
         this.streaming = true;
-        const msgs = texts.map((content) => {
+        const msgs = this.texts.map((content) => {
           return {
             role: "user",
             content,
           };
         });
         const body = this.getPayload(msgs);
-        const source = new window.SSE(
-          VITE_MP_URL + "/v1/chat/completions",
-          body
-        );
+        const source = new window.SSE(VITE_AI_URL + "/chat/completions", body);
         source.addEventListener("message", (e) => {
           try {
             const json = JSON.parse(e.data);
@@ -90,6 +83,11 @@ export default {
           if (!this.streaming) {
             return;
           }
+          console.log(this.lastChatId, "abort");
+          // let msg = this.resMsg;
+          // if (msg) msg += "...\n\n";
+          // msg += "Aborted";
+          // this.onErr(msg);
         });
         source.stream();
         this.mySSE = source;
@@ -100,8 +98,11 @@ export default {
     },
     getPayload(messages = [], opt = {}) {
       const body = {
+        sid: this.indexId,
+        cid: this.lastChatId,
         model: this.model,
         messages,
+        // temperature: 0.6,
         stream: true,
         ...opt,
       };

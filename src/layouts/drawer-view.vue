@@ -128,6 +128,9 @@ export default {
     checked(val) {
       localStorage.checkedModels = JSON.stringify(val);
       // this.$emit("update-checked", val);
+      this.$setState({
+        checkModelIds: val,
+      });
     },
     selected(val) {
       localStorage.selectedModels = JSON.stringify(val);

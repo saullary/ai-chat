@@ -3,6 +3,7 @@ import api from "../utils/api";
 import { setState, setStore } from "../store";
 import { EventBus, copyToClipboard } from "quasar";
 import Components from "../components";
+const { VITE_HOME_URL } = import.meta.env;
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -18,6 +19,10 @@ export default boot(({ app }) => {
   app.use(Components);
 
   global.$bus = new EventBus();
+
+  global.$getHomeUrl = (path = "") => {
+    return VITE_HOME_URL + path;
+  };
 
   global.$copy = async (txt, msg = "Copied") => {
     await copyToClipboard(txt);

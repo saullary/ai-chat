@@ -35,11 +35,17 @@
       <jazz-icon hash="test1" />
     </div>
     <div class="ml-2">
-      <div class="d-flex mb-1">
-        <a class="al-c hover-1 fz-13" href="/" target="_blank">
-          <span>ChatGPT 3.5</span>
+      <div class="d-flex mb-1 fz-13">
+        <a
+          v-if="modelRow"
+          class="al-c hover-1"
+          :href="$getHomeUrl('ai-rpc/model/' + encodeURIComponent(modelId))"
+          target="_blank"
+        >
+          <span>{{ modelRow.name }}</span>
           <img src="/img/ic-link.svg" width="12" class="ml-2" />
         </a>
+        <span v-else>{{ modelId }}</span>
       </div>
 
       <div class="d-flex">
@@ -50,11 +56,7 @@
                 'line-3': !isEpand,
               }"
             >
-              <div>
-                述的示例代码中，当用户点击按钮时，将调用getResponse()函数。该函数使用axios发出一个POST请求到OpenAI的API端点，其中包含了一个简单的提示和参数max_tokens。请确保您已经正确替换了YOUR_OPENAI_API_KEY为您自己的OpenAI
-                API密钥。述的示例代码中，当用户点击按钮时，将调用getResponse()函数。该函数使用axios发出一个POST请求到OpenAI的API端点，其中包含了一个简单的提示和参数max_tokens。请确保您已经正确替换了YOUR_OPENAI_API_KEY为您自己的OpenAI
-                API密钥。
-              </div>
+              <md-con content="" />
             </div>
           </div>
 
@@ -99,10 +101,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   props: {
-    model: String,
+    modelId: String,
     msgId: String,
+    text: String,
+  },
+  computed: {
+    ...mapState({
+      aiModels: (s) => s.aiModels,
+    }),
+    modelRow() {
+      return this.aiModels.find((it) => it.id == this.modelId);
+    },
   },
   data() {
     return {
