@@ -6,7 +6,6 @@ const storInit = {
   loginData: {},
   userInfo: {},
   aiModels: [],
-  sysLang: "zh",
 };
 const storState = {
   ...storInit,
@@ -27,21 +26,8 @@ const store = createStore({
     nowDate: new Date(),
     isFocus: true,
     showProgress: false,
-    lastChatId: null,
-    finishModels: [],
-    indexId: 0,
   },
-  getters: {
-    indexItem(state) {
-      let item = state.indexList.find((it) => it.id == state.indexId);
-      if (item) return item;
-      item = state.shareList.find((it) => it.id == state.indexId);
-      return {
-        ...item,
-        byShare: true,
-      };
-    },
-  },
+  getters: {},
   mutations: {
     [SET_DATA](state, data) {
       for (const key in data) {
@@ -49,19 +35,7 @@ const store = createStore({
       }
     },
   },
-  actions: {
-    login(_, data) {
-      setStore({
-        loginData: data,
-      });
-    },
-    logout() {
-      localStorage.clear();
-      setStore({
-        ...storInit,
-      });
-    },
-  },
+  actions: {},
 });
 
 export const setState = (data) => {
