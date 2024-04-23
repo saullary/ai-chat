@@ -7,7 +7,7 @@
         :modelId="it.model"
         :text="getText(it)"
       />
-      <msg-sent v-else :rowId="it.id" :text="it.content" />
+      <msg-sent v-else :rowId="it.id" :modelId="it.model" :text="it.content" />
     </template>
   </div>
 </template>
@@ -72,8 +72,12 @@ export default {
           createAt: Date.now(),
         });
       }
+      const chatLogs = [...this.chatLogs, ...list];
+      if (chatLogs.length > 50) {
+        //
+      }
       this.$setStore({
-        chatLogs: [...this.chatLogs, ...list],
+        chatLogs,
       });
       this.$setState({
         jobModelIds,
@@ -84,9 +88,10 @@ export default {
       if (it.model) {
         const msgRow = this.chatLogs.find((log) => log.id == it.con_id);
         if (msgRow) return [msgRow.content];
-        return this.chatLogs.filter(
-          (log) => !log.model && log.createAt < it.createAt
-        );
+        return this.chatLogs
+          .filter((log) => !log.model && log.createAt < it.createAt)
+          .slice(-4)
+          .map((it) => it.content);
       }
       return it.content;
     },
