@@ -86,7 +86,7 @@ export default {
         this.inputVal = "";
         return;
       }
-      this.$emit("send", this.trimVal);
+      this.$bus.emit("send-msg", this.trimVal);
       this.inputVal = "";
     },
   },

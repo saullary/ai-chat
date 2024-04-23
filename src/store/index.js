@@ -6,6 +6,7 @@ const storInit = {
   loginData: {},
   userInfo: {},
   aiModels: [],
+  chatLogs: [],
 };
 const storState = {
   ...storInit,
@@ -27,6 +28,7 @@ const store = createStore({
     isFocus: true,
     showProgress: false,
     checkModelIds: [],
+    jobModelIds: [],
   },
   getters: {},
   mutations: {

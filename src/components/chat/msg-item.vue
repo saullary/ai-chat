@@ -37,15 +37,14 @@
     <div class="ml-2">
       <div class="d-flex mb-1 fz-13">
         <a
-          v-if="modelRow"
           class="al-c hover-1"
           :href="$getHomeUrl('/ai-rpc/model/' + encodeURIComponent(modelId))"
           target="_blank"
         >
-          <span>{{ modelRow.name }}</span>
+          <span v-if="modelRow">{{ modelRow.name }}</span>
+          <span v-else>{{ modelId }}</span>
           <img src="/img/ic-link.svg" width="12" class="ml-2" />
         </a>
-        <span v-else>{{ modelId }}</span>
       </div>
 
       <div class="d-flex">
@@ -56,7 +55,8 @@
                 'line-3': !isEpand,
               }"
             >
-              <md-con content="" />
+              <!-- <md-con content="" /> -->
+              {{ rowId }} {{ text }}
             </div>
           </div>
 
@@ -105,9 +105,9 @@ import { mapState } from "vuex";
 
 export default {
   props: {
+    rowId: String,
     modelId: String,
-    msgId: String,
-    text: String,
+    text: Array,
   },
   computed: {
     ...mapState({

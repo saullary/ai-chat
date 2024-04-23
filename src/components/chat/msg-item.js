@@ -41,7 +41,7 @@ export default {
     fetchAi() {
       try {
         this.streaming = true;
-        const msgs = this.texts.map((content) => {
+        const msgs = this.text.map((content) => {
           return {
             role: "user",
             content,

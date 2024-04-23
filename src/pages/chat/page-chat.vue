@@ -27,10 +27,14 @@ import ChatInput from "./chat-input.vue";
       class="flex-1"
       @scroll="onScroll"
     >
-      <chat-list />
+      <chat-list
+        :class="{
+          'op-0': !showList,
+        }"
+      />
     </q-scroll-area>
 
-    <chat-input @send="onSend" />
+    <chat-input />
   </div>
 </template>
 
@@ -52,18 +56,22 @@ export default {
         width: "3px",
         opacity: 0.35,
       },
+      showList: false,
     };
   },
   mounted() {
     listRef = this.$refs.chatList;
-    this.scrollToBtm(false);
+    setTimeout(() => {
+      this.scrollToBtm(false);
+      this.showList = true;
+    }, 60);
+    this.$bus.on("chat-to-btm", (anim) => {
+      this.scrollToBtm(anim);
+    });
   },
   methods: {
     getKeys() {
       // /rpc/ai/manager/keys
-    },
-    onSend(val) {
-      console.log("send", val);
     },
     scrollToBtm(anim = true) {
       this.$nextTick(() => {
