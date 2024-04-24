@@ -1,11 +1,5 @@
 <style lang="scss">
-.q-drawer-container {
-}
 </style>
-
-<script setup>
-import drawerView from "./drawer-view.vue";
-</script>
 
 <template>
   <div class="px-4">
@@ -44,7 +38,7 @@ import drawerView from "./drawer-view.vue";
         :breakpoint="900"
         style="background: #f8f3fe"
       >
-        <drawer-view @close="onClose" />
+        <model-list @close="onClose" />
       </q-drawer>
 
       <q-page-container>

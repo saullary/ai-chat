@@ -42,7 +42,7 @@
                   clickable
                   :active="selected.includes(row.id)"
                   active-class="bg-f1 gray-3"
-                  @click="onSelect(row)"
+                  @click="onSelect(row.id)"
                 >
                   <q-item-section>
                     <span class="py-1">{{ row.name }}</span>
@@ -137,11 +137,29 @@ export default {
     },
   },
   created() {
-    this.checked = JSON.parse(localStorage.checkedModels || "[]");
-    this.getModels();
+    this.onInit();
   },
   methods: {
-    onSelect({ id }) {
+    async onInit() {
+      this.checked = JSON.parse(localStorage.checkedModels || "[]");
+      await this.getModels();
+      let { model } = this.$route.query;
+      if (model) {
+        const isIn = this.aiModels.find((it) => it.id == model);
+        if (!isIn) model = "";
+      }
+      if (!this.selected.length && !model) {
+        model = "openrouter/auto";
+      }
+      if (model) {
+        if (!this.selected.includes(model)) {
+          this.onSelect(model);
+        } else if (!this.checked.includes(model)) {
+          this.checked = [...this.checked, model];
+        }
+      }
+    },
+    onSelect(id) {
       const selected = [...this.selected];
       const checked = [...this.checked];
       let index = selected.indexOf(id);

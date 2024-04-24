@@ -8,6 +8,8 @@ export default {
       streaming: false,
       resMsg: "",
       msgList: [],
+      tokenNum: 0,
+      beginAt: null,
     };
   },
   watch: {
@@ -34,6 +36,8 @@ export default {
     fetchAi() {
       try {
         this.streaming = true;
+        this.tokenNum = 0;
+        this.beginAt = Date.now();
         const msgs = this.text.map((content) => {
           return {
             role: "user",
@@ -43,6 +47,7 @@ export default {
         const body = this.getPayload(msgs);
         const source = new window.SSE(VITE_AI_URL + "/chat/completions", body);
         source.addEventListener("message", (e) => {
+          console.log(e);
           try {
             const json = JSON.parse(e.data);
             if (json.error) {
@@ -50,7 +55,10 @@ export default {
               return;
             }
             const text = json.choices[0].delta?.content || "";
-            this.resMsg = this.resMsg + text;
+            if (text) {
+              this.tokenNum++;
+              this.resMsg = this.resMsg + text;
+            }
           } catch (error) {
             if (e.data == "[DONE]") {
               this.outputMsg(this.resMsg);

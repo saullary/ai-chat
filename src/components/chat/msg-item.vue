@@ -88,9 +88,10 @@
       </div>
 
       <div class="mt-1 al-c gray op-9">
-        <!-- <span>3.9s</span> -->
-        <div class="al-c hover-show">
+        <span>~{{ tokenNum }} tokens</span>
+        <div class="al-c ml-2 hover-show">
           <img
+            v-show="!streaming"
             src="/img/ic-refresh.svg"
             width="14"
             class="hover-1 mr-2"
@@ -101,6 +102,7 @@
             src="/img/ic-copy.svg"
             width="14"
             class="hover-1 mr-2"
+            @click="$copy(mdCon)"
           />
           <img
             src="/img/ic-delete.svg"
@@ -123,9 +125,9 @@ export default {
   mixins: [mixin],
   props: {
     rowId: String,
+    info: Object,
     modelId: String,
     text: Array,
-    content: String,
   },
   computed: {
     ...mapState({
@@ -135,7 +137,7 @@ export default {
       return this.aiModels.find((it) => it.id == this.modelId);
     },
     mdCon() {
-      return this.resMsg || this.content;
+      return this.resMsg || this.info.content;
     },
   },
   data() {
@@ -151,7 +153,8 @@ export default {
   },
   created() {
     this.setNewContent = debounce(this.setContent, 300);
-    if (!this.content) {
+    this.tokenNum = this.info.tokens || 0;
+    if (!this.info.content) {
       this.fetchAi();
     }
   },
@@ -169,14 +172,16 @@ export default {
     },
     setContent() {
       if (!this.resMsg) return;
-      console.log(this.rowId, this.resMsg);
+      // console.log(this.info.id, this.resMsg);
       this.updateLog({
         content: this.resMsg,
+        spend: Date.now() - this.beginAt,
+        tokens: this.tokenNum,
       });
     },
     updateLog(body) {
       this.$store.commit("updateChatLog", {
-        id: this.rowId,
+        id: this.info.id,
         ...body,
       });
     },

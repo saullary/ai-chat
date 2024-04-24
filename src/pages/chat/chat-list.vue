@@ -6,7 +6,7 @@
         :rowId="it.id"
         :modelId="it.model"
         :text="getText(it)"
-        :content="it.content"
+        :info="it"
       />
       <msg-sent v-else :rowId="it.id" :modelId="it.model" :text="it.content" />
     </template>
