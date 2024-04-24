@@ -132,6 +132,7 @@ export default {
   computed: {
     ...mapState({
       aiModels: (s) => s.aiModels,
+      apiKey: (s) => s.apiKey,
     }),
     modelRow() {
       return this.aiModels.find((it) => it.id == this.modelId);
@@ -143,7 +144,6 @@ export default {
   data() {
     return {
       isEpand: false,
-      apiKey: "40b0f112f10ee8d0958e06f54b7b7cd6",
     };
   },
   watch: {

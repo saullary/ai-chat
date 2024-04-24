@@ -7,6 +7,8 @@ const storInit = {
   userInfo: {},
   aiModels: [],
   chatLogs: [],
+  keyList: [],
+  apiKey: "",
 };
 const storState = {
   ...storInit,

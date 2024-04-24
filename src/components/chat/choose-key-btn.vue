@@ -1,8 +1,8 @@
 <template>
   <q-btn flat dense class="bg-white bd-1" @click="isEpand = !isEpand">
-    <span class="fz-13 mr-auto px-2 ta-l lh-15" style="min-width: 120px"
-      >Choose Key</span
-    >
+    <span class="fz-13 mr-auto px-2 ta-l lh-15" style="min-width: 120px">{{
+      keyName
+    }}</span>
     <img
       src="/img/ic-down.svg"
       width="14"
@@ -19,9 +19,15 @@
       @before-hide="isEpand = false"
     >
       <q-list dense separator style="min-width: 160px">
-        <q-item clickable v-close-popup v-for="i in 5" :key="i">
+        <q-item
+          clickable
+          v-close-popup
+          v-for="it in keyList"
+          :key="it.id"
+          @click="onItem(it)"
+        >
           <q-item-section>
-            <span>test {{ i }}</span>
+            <span>{{ it.name }}</span>
           </q-item-section>
         </q-item>
       </q-list>
@@ -30,11 +36,47 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
+  computed: {
+    ...mapState({
+      keyList: (s) => s.keyList,
+      apiKey: (s) => s.apiKey,
+    }),
+    keyName() {
+      const item = this.keyList.find((it) => it.key == this.apiKey);
+      if (item) return item.name;
+      return "Choose Key";
+    },
+  },
   data() {
     return {
       isEpand: false,
     };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    onItem(it) {
+      this.$setStore({
+        apiKey: it.key,
+      });
+    },
+    async getList() {
+      try {
+        const { data } = await this.$http.get("/rpc/ai/manager/keys");
+        this.$setStore({
+          keyList: data.items,
+        });
+        if (!this.apiKey && this.keyList.length) {
+          this.onItem(this.keyList[0]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>

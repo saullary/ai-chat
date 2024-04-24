@@ -4,7 +4,6 @@ export default {
   emits: ["output-msg"],
   data() {
     return {
-      apiKey: "",
       streaming: false,
       resMsg: "",
       msgList: [],
@@ -47,7 +46,6 @@ export default {
         const body = this.getPayload(msgs);
         const source = new window.SSE(VITE_AI_URL + "/chat/completions", body);
         source.addEventListener("message", (e) => {
-          console.log(e);
           try {
             const json = JSON.parse(e.data);
             if (json.error) {
@@ -75,7 +73,6 @@ export default {
           } catch (error) {
             //
           }
-          console.log(msg, e);
           this.onErr(msg);
         });
         source.addEventListener("abort", () => {

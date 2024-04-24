@@ -2,7 +2,7 @@ import Axios from "axios";
 import store from "../store";
 import router from "../router";
 
-const { VITE_BASE_URL: baseURL } = import.meta.env;
+const { VITE_BASE_URL: baseURL, VITE_HOME_URL } = import.meta.env;
 
 // console.log({ baseURL });
 const http = Axios.create({
@@ -63,60 +63,14 @@ async function handleError(status, config, data) {
     });
   }
   // console.log(data);
-  if (status == 4011) {
-    let isRefresh = false;
-    if (status != 403) {
-      refreshing = true;
-      isRefresh = await getRefreshToken();
-    }
-    if (isRefresh) {
-      pendingQueue.forEach(({ config, resolve }) => {
-        resolve(http(config));
-      });
-      return http(config);
-    } else {
-      console.log("redirect to login");
-      store.dispatch("logout");
-      const loginPath = "/login";
-      if (location.pathname != loginPath) {
-        localStorage.loginTo = location.pathname + location.search;
-      }
-      router.replace({
-        path: loginPath,
-      });
-      return;
-    }
+  if (status == 401) {
+    location.href = VITE_HOME_URL + "/ai-rpc?tab=Models&act=login";
   }
   if (!config.noTip) {
     let msg = data.msg || "Unknown error";
     if (msg.length < 50) window.$toast(msg);
     else window.$alert(msg);
   }
-}
-
-async function getRefreshToken() {
-  const refreshToken = getToken(1);
-  if (!refreshToken) {
-    return false;
-  }
-  try {
-    const res = await Axios.post(
-      baseURL + "/login/refresh",
-      {
-        refreshToken,
-      },
-      {
-        headers: {
-          // Authorization: "Bearer " + getToken(),
-        },
-      }
-    );
-    store.dispatch("login", res.data.data);
-    return res.status == 200;
-  } catch (error) {
-    console.log("refresh err", error);
-  }
-  return false;
 }
 
 export default http;

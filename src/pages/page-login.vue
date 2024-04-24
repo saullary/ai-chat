@@ -20,9 +20,9 @@ export default {
       });
     }
     if (!this.token) {
-      location.href = this.$getHomeUrl(
-        "/login?loginTo=" + encodeURIComponent(location.origin)
-      );
+      location.href = this.$getHomeUrl("/ai-rpc?tab=Models&act=login");
+    } else {
+      this.$router.replace("/");
     }
   },
 };
