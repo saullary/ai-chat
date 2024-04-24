@@ -24,6 +24,7 @@
           v-close-popup
           v-for="it in keyList"
           :key="it.id"
+          :active="it.key == apiKey"
           @click="onItem(it)"
         >
           <q-item-section>
@@ -55,8 +56,13 @@ export default {
       isEpand: false,
     };
   },
+  watch: {
+    isEpand(val) {
+      if (val) this.getList();
+    },
+  },
   created() {
-    this.getList();
+    if (!this.apiKey) this.getList();
   },
   methods: {
     onItem(it) {

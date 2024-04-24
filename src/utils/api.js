@@ -22,7 +22,7 @@ http.interceptors.request.use(
     // config.url = config.url.replace("$mp", mpURL);
     let token = getToken();
     if (token) {
-      config.headers["token"] = token;
+      config.headers["Authorization"] = "Bearer " + token;
     }
     return config;
   },
@@ -33,7 +33,23 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   async (res) => {
-    // const data = res.data;
+    const data = res.data;
+    if (typeof data == "object" && data && "code" in data) {
+      if (data.code != 200 && data.code != "SUCCESS") {
+        data.msg = data.message || `${data.code} error`;
+        // handleMsg(200, data.code, msg, res.config);
+        const pending = await handleError(200, res.config, data);
+        if (pending) {
+          return pending;
+        }
+        const error = new Error(data.msg);
+        error.code = data.code;
+        throw error;
+      }
+      if ("data" in data) {
+        return data;
+      }
+    }
     return res;
   },
   async (error) => {
