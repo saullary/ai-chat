@@ -30,7 +30,11 @@
 
         <q-btn class="ml-auto" color="primary" dense unelevated>
           <q-icon name="add_circle_outline" size="20px"></q-icon>
-          <q-menu max-height="360px">
+          <q-menu
+            max-height="360px"
+            transition-show="jump-down"
+            transition-hide="jump-up"
+          >
             <q-list dense separator style="min-width: 160px">
               <template v-for="group in modelGroups" :key="group.name">
                 <div class="gray fz-12 px-4 py-2">
