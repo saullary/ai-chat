@@ -55,8 +55,7 @@
                 'line-3': !isEpand,
               }"
             >
-              <!-- <md-con content="" /> -->
-              {{ rowId }} {{ text }}
+              <md-con :content="mdCon" />
             </div>
           </div>
 
@@ -90,10 +89,25 @@
 
       <div class="mt-1 al-c gray op-9">
         <!-- <span>3.9s</span> -->
-        <div class="ml-2 al-c hover-show">
-          <img src="/img/ic-refresh.svg" width="14" class="hover-1" />
-          <img src="/img/ic-copy.svg" width="14" class="hover-1 ml-2" />
-          <img src="/img/ic-delete.svg" width="14" class="hover-1 ml-2" />
+        <div class="al-c hover-show">
+          <img
+            src="/img/ic-refresh.svg"
+            width="14"
+            class="hover-1 mr-2"
+            @click="onUpdate"
+          />
+          <img
+            v-show="mdCon"
+            src="/img/ic-copy.svg"
+            width="14"
+            class="hover-1 mr-2"
+          />
+          <img
+            src="/img/ic-delete.svg"
+            width="14"
+            class="hover-1 mr-2"
+            @click="onDel"
+          />
         </div>
       </div>
     </div>
@@ -101,13 +115,17 @@
 </template>
 
 <script>
+import { debounce } from "quasar";
 import { mapState } from "vuex";
+import mixin from "./msg-item";
 
 export default {
+  mixins: [mixin],
   props: {
     rowId: String,
     modelId: String,
     text: Array,
+    content: String,
   },
   computed: {
     ...mapState({
@@ -116,12 +134,52 @@ export default {
     modelRow() {
       return this.aiModels.find((it) => it.id == this.modelId);
     },
+    mdCon() {
+      return this.resMsg || this.content;
+    },
   },
   data() {
     return {
       isEpand: false,
+      apiKey: "40b0f112f10ee8d0958e06f54b7b7cd6",
     };
   },
-  methods: {},
+  watch: {
+    resMsg() {
+      this.setNewContent();
+    },
+  },
+  created() {
+    this.setNewContent = debounce(this.setContent, 300);
+    if (!this.content) {
+      this.fetchAi();
+    }
+  },
+  methods: {
+    onDel() {
+      this.updateLog({
+        _delete: true,
+      });
+    },
+    onUpdate() {
+      this.updateLog({
+        content: "",
+      });
+      this.fetchAi();
+    },
+    setContent() {
+      if (!this.resMsg) return;
+      console.log(this.rowId, this.resMsg);
+      this.updateLog({
+        content: this.resMsg,
+      });
+    },
+    updateLog(body) {
+      this.$store.commit("updateChatLog", {
+        id: this.rowId,
+        ...body,
+      });
+    },
+  },
 };
 </script>

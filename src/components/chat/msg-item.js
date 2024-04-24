@@ -2,9 +2,6 @@ const { VITE_AI_URL } = import.meta.env;
 
 export default {
   emits: ["output-msg"],
-  props: {
-    model: String,
-  },
   data() {
     return {
       apiKey: "",
@@ -24,19 +21,15 @@ export default {
       this.outputMsg(msg);
     },
     outputMsg(content) {
-      this.$emit("output-msg", {
-        content,
-        // time: Date.now(),
-      });
-      // this.resMsg = "";
+      this.setContent(content);
+      this.resMsg = "";
       this.streaming = false;
-      if (!this.showPop) this.setDone();
-      else this.willDone = true;
+      this.setDone();
     },
     setDone() {
-      this.$setState({
-        finishModels: [...this.finishModels, this.model],
-      });
+      // this.$setState({
+      //   finishModels: [...this.finishModels, this.model],
+      // });
     },
     fetchAi() {
       try {
@@ -52,7 +45,6 @@ export default {
         source.addEventListener("message", (e) => {
           try {
             const json = JSON.parse(e.data);
-            // console.log(this.model, json);
             if (json.error) {
               this.onErr(json.error.message);
               return;
@@ -60,7 +52,6 @@ export default {
             const text = json.choices[0].delta?.content || "";
             this.resMsg = this.resMsg + text;
           } catch (error) {
-            // console.log(this.model, e.data, 2);
             if (e.data == "[DONE]") {
               this.outputMsg(this.resMsg);
             }
@@ -98,11 +89,8 @@ export default {
     },
     getPayload(messages = [], opt = {}) {
       const body = {
-        sid: this.indexId,
-        cid: this.lastChatId,
-        model: this.model,
+        model: this.modelId,
         messages,
-        // temperature: 0.6,
         stream: true,
         ...opt,
       };

@@ -16,7 +16,7 @@ import ChatInput from "./chat-input.vue";
         :options="keyOpts"
         map-options
       ></q-select> -->
-      <q-btn class="ml-3 bg-white bd-1" dense flat>
+      <q-btn class="ml-3 bg-white bd-1" dense flat @click="onClearChat">
         <img src="/img/ic-clear.svg" width="22" class="px-2p" />
       </q-btn>
     </div>
@@ -78,11 +78,16 @@ export default {
         const el = listRef.getScrollTarget();
         const maxH = el.scrollHeight - el.clientHeight;
         // listRef.getScroll().verticalSize
-        listRef.setScrollPosition("vertical", maxH, anim ? 160 : 0);
+        listRef.setScrollPosition("vertical", maxH, anim ? 240 : 0);
       });
     },
     onScroll(e) {
       // console.log(e.verticalPosition);
+    },
+    onClearChat() {
+      this.$setStore({
+        chatLogs: [],
+      });
     },
   },
 };

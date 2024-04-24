@@ -71,14 +71,14 @@
         <div
           v-for="it in modelOptions"
           :key="it.id"
-          class="bd-1 px-3 py-2 bdrs-6 mb-3 model-item pos-r"
+          class="bd-1 px-3 py-2 bdrs-6 mb-3 model-item pos-r hover-wrap"
           :class="checked.includes(it.id) ? 'check' : 'uncheck'"
         >
           <div class="al-c">
             <jazz-icon :hash="it.id" :size="30"></jazz-icon>
             <span class="ml-2">{{ it.name }}</span>
           </div>
-          <div class="y-center right-0 mr-3 pa- bg-white bdrs-6">
+          <div class="y-center right-0 mr-3 pr-1 bg-white bdrs-6 hover-show">
             <q-toggle v-model="checked" :val="it.id" size="sm" />
           </div>
         </div>
