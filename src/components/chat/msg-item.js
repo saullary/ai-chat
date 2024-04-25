@@ -29,11 +29,14 @@ export default {
       //   finishModels: [...this.finishModels, this.model],
       // });
     },
+    closeAi() {
+      if (this.mySSE) {
+        this.mySSE.close();
+      }
+    },
     fetchAi() {
       try {
-        if (this.mySSE) {
-          // this.mySSE.close();
-        }
+        this.closeAi();
         this.streaming = true;
         this.tokenNum = 0;
         this.beginAt = Date.now();
@@ -79,7 +82,7 @@ export default {
           if (!this.streaming) {
             return;
           }
-          console.log(this.lastChatId, "abort");
+          console.log(this.info.id, "abort");
           // let msg = this.resMsg;
           // if (msg) msg += "...\n\n";
           // msg += "Aborted";

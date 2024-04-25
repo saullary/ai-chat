@@ -154,6 +154,7 @@ export default {
   created() {
     this.$bus.on("refresh-chat", (id) => {
       if (id == this.info.con_id) {
+        this.closeAi();
         this.onGetNew();
       }
     });
@@ -165,6 +166,7 @@ export default {
   },
   methods: {
     onDel() {
+      this.closeAi();
       this.updateLog({
         _delete: true,
       });
