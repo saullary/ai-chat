@@ -92,7 +92,12 @@
             class="y-center right-0 mr-3 pr-2 bg-white bdrs-6 al-c hover-show"
           >
             <q-toggle v-model="checked" :val="it.id" size="sm" />
-            <img src="/img/settings.svg" width="20" class="hover-1" />
+            <img
+              src="/img/settings.svg"
+              width="20"
+              class="hover-1"
+              @click="$toast('In dev')"
+            />
           </div>
         </div>
       </div>

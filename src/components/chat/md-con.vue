@@ -1,7 +1,12 @@
 
 <template>
   <div v-if="!content">
-    <q-skeleton type="text" width="40px" />
+    <!-- <q-skeleton type="text" width="40px" /> -->
+    <div style="width: 30px; height: 21px" class="pos-r">
+      <div class="pos-center">
+        <q-spinner-dots color="primary" size="25px" />
+      </div>
+    </div>
   </div>
   <div v-else class="md-con" v-html="htmlCon" />
 </template>

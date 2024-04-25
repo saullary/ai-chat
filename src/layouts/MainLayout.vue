@@ -25,8 +25,8 @@ import MainHeader from "./main-header.vue";
         :breakpoint="900"
         style="background: #f8f3fe"
       >
-        <!-- <model-list /> -->
-        <model-settings />
+        <model-list />
+        <!-- <model-settings /> -->
       </q-drawer>
 
       <q-page-container>
