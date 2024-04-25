@@ -25,11 +25,19 @@
           v-for="it in keyList"
           :key="it.id"
           :active="it.key == apiKey"
-          @click="onItem(it)"
+          @click="setKey(it.key)"
         >
           <q-item-section>
             <span>{{ it.name }}</span>
           </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          v-close-popup
+          v-if="!keyList.length"
+          @click="goApiManage"
+        >
+          <q-item-section> Add API Key </q-item-section>
         </q-item>
       </q-list>
     </q-menu>
@@ -62,12 +70,12 @@ export default {
     },
   },
   created() {
-    if (!this.apiKey) this.getList();
+    this.getList();
   },
   methods: {
-    onItem(it) {
+    setKey(apiKey) {
       this.$setStore({
-        apiKey: it.key,
+        apiKey,
       });
     },
     async getList() {
@@ -76,12 +84,31 @@ export default {
         this.$setStore({
           keyList: data.items,
         });
-        if (!this.apiKey && this.keyList.length) {
-          this.onItem(this.keyList[0]);
+        let apiKey = this.apiKey;
+        if (this.keyList.length) {
+          const isIn = this.keyList.find((it) => it.key == apiKey);
+          if (!isIn) apiKey = this.keyList[0].key;
         }
+        this.setKey(apiKey);
+        if (!apiKey) this.tipKey();
       } catch (error) {
         console.log(error);
       }
+    },
+    tipKey() {
+      this.$confirm("API Key required", {
+        title: "Notice",
+        ok: {
+          label: "Create",
+          color: "primary",
+          flat: false,
+        },
+      }).then(() => {
+        this.goApiManage();
+      });
+    },
+    goApiManage() {
+      window.open(this.$getHomeUrl("/ai-rpc?tab=Keys"));
     },
   },
 };
