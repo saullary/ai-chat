@@ -15,7 +15,7 @@ export default {
     if (token) {
       this.$setStore({
         loginData: {
-          token,
+          token: decodeURIComponent(token),
         },
       });
     }

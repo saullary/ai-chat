@@ -23,12 +23,18 @@
 
 <template>
   <div class="h-flex h100p">
-    <div class="pa-3 bdb-1" style="background: #fcf9ff">
+    <div class="pa-3 bdb-1 bg-pink0">
       <div class="al-c">
         <img src="/img/model.svg" width="30" />
         <span class="fz-18 ml-2">Model</span>
 
-        <q-btn class="ml-auto" color="primary" dense unelevated>
+        <q-btn
+          class="ml-auto"
+          color="primary"
+          dense
+          unelevated
+          :loading="loadingModel"
+        >
           <q-icon name="add_circle_outline" size="20px"></q-icon>
           <q-menu
             max-height="360px"
@@ -82,8 +88,11 @@
             <jazz-icon :hash="it.id" :size="30"></jazz-icon>
             <span class="ml-2">{{ it.name }}</span>
           </div>
-          <div class="y-center right-0 mr-3 pr-1 bg-white bdrs-6 hover-show">
+          <div
+            class="y-center right-0 mr-3 pr-2 bg-white bdrs-6 al-c hover-show"
+          >
             <q-toggle v-model="checked" :val="it.id" size="sm" />
+            <img src="/img/settings.svg" width="20" class="hover-1" />
           </div>
         </div>
       </div>

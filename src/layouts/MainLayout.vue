@@ -38,7 +38,8 @@
         :breakpoint="900"
         style="background: #f8f3fe"
       >
-        <model-list @close="onClose" />
+        <!-- <model-list /> -->
+        <model-settings />
       </q-drawer>
 
       <q-page-container>
