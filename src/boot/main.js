@@ -1,4 +1,5 @@
 import { boot } from "quasar/wrappers";
+import "../utils/extend";
 import api from "../utils/api";
 import { setState, setStore } from "../store";
 import { EventBus, copyToClipboard } from "quasar";

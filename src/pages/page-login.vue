@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-4">{{ token ? "Logged" : "Login..." }}</div>
+  <div class="pa-4">{{ token ? "Signed In" : "Redirecting..." }}</div>
 </template>
 
 <script>

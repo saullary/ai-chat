@@ -1,28 +1,15 @@
 <style lang="scss">
 </style>
 
+<script setup>
+import MainHeader from "./main-header.vue";
+</script>
+
 <template>
   <div class="px-4">
-    <div class="al-c max-wrap py-3">
-      <a href="/" class="mr-auto">
-        <img
-          src="https://dashboard.4everland.org/img/svg/logo.svg"
-          style="height: 24px"
-        />
-      </a>
-      <q-btn href="https://docs.4everland.org/" target="_blank" flat dense
-        >Docs</q-btn
-      >
-      <q-btn
-        class="ml-4"
-        href="https://dashboard.4everland.org/"
-        target="_blank"
-        flat
-        dense
-        >Dashboard</q-btn
-      >
-    </div>
+    <main-header />
     <q-layout
+      v-if="token"
       view="lHh Lpr lFf"
       class="bd-1 bdrs-8 bg-white max-wrap"
       container
@@ -64,11 +51,19 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
       isOpen: false,
     };
+  },
+  computed: {
+    ...mapState({
+      token: (s) => s.loginData.token,
+      // userInfo: (s) => s.userInfo,
+    }),
   },
   mounted() {
     this.$bus.on("toggleMenu", () => {

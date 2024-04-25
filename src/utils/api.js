@@ -2,7 +2,11 @@ import Axios from "axios";
 import store from "../store";
 import router from "../router";
 
-const { VITE_BASE_URL: baseURL, VITE_HOME_URL } = import.meta.env;
+const {
+  VITE_BASE_URL: baseURL,
+  VITE_USER_URL,
+  VITE_HOME_URL,
+} = import.meta.env;
 
 // console.log({ baseURL });
 const http = Axios.create({
@@ -19,7 +23,7 @@ function getToken(isRefresh) {
 
 http.interceptors.request.use(
   (config) => {
-    // config.url = config.url.replace("$mp", mpURL);
+    config.url = config.url.replace("$auth", VITE_USER_URL);
     let token = getToken();
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
