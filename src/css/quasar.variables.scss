@@ -48,3 +48,15 @@ $warning: #f2c037;
     }
   }
 }
+
+.q-field--outlined.q-field--highlighted .q-field__control:after {
+  border-width: 1px;
+}
+.tiny-input {
+  .q-field__control {
+    height: 30px;
+  }
+  input {
+    text-align: right;
+  }
+}

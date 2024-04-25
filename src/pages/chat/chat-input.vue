@@ -12,9 +12,6 @@
   .q-field__append {
     margin-top: auto;
   }
-  .q-field--outlined.q-field--highlighted .q-field__control:after {
-    border-width: 1px;
-  }
 }
 </style>
 
