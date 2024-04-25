@@ -19,7 +19,7 @@
     >
     <q-btn v-if="userInfo.uid" flat class="bg-white">
       <jazz-icon :hash="userInfo.uid" :size="18" />
-      <span class="ml-2">{{ userName }}</span>
+      <span class="ml-2">{{ userInfo.uname }}</span>
       <img src="/img/ic-down.svg" width="14" class="ml-2" />
       <q-menu
         transition-show="jump-down"
@@ -60,10 +60,6 @@ export default {
       token: (s) => s.loginData.token,
       userInfo: (s) => s.userInfo,
     }),
-    userName() {
-      const { uid = "", username } = this.userInfo;
-      return (username || uid).cutStr(4, 4);
-    },
   },
   created() {
     if (this.token) {
@@ -98,6 +94,8 @@ export default {
       try {
         this.loadingUser = true;
         const { data } = await this.$http.get("$auth/user");
+        const { uid = "", username } = data;
+        data.uname = (username || uid).cutStr(4, 4);
         this.$setStore({
           userInfo: data,
         });

@@ -7,7 +7,7 @@
 <template>
   <div class="d-flex f-end hover-wrap">
     <div class="mr-2 ta-r">
-      <div class="fz-14 op-6 mb-1">Saul</div>
+      <div class="fz-14 op-6 mb-1">{{ userInfo.uname }}</div>
       <div class="d-flex f-end">
         <div>
           <q-btn
@@ -44,12 +44,14 @@
     </div>
 
     <div>
-      <jazz-icon hash="user" />
+      <jazz-icon :hash="userInfo.uid" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 const { VITE_AI_URL } = import.meta.env;
 
 export default {
@@ -57,6 +59,11 @@ export default {
     rowId: String,
     modelId: String,
     text: String,
+  },
+  computed: {
+    ...mapState({
+      userInfo: (s) => s.userInfo,
+    }),
   },
   data() {
     return {
