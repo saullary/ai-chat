@@ -95,7 +95,7 @@
             src="/img/ic-refresh.svg"
             width="14"
             class="hover-1 mr-2"
-            @click="onUpdate"
+            @click="onGetNew"
           />
           <img
             v-show="mdCon"
@@ -152,6 +152,11 @@ export default {
     },
   },
   created() {
+    this.$bus.on("refresh-chat", (id) => {
+      if (id == this.info.con_id) {
+        this.onGetNew();
+      }
+    });
     this.setNewContent = debounce(this.setContent, 300);
     this.tokenNum = this.info.tokens || 0;
     if (!this.info.content) {
@@ -164,7 +169,7 @@ export default {
         _delete: true,
       });
     },
-    onUpdate() {
+    onGetNew() {
       this.updateLog({
         content: "",
       });

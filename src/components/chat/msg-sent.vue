@@ -10,7 +10,14 @@
       <div class="fz-14 op-6 mb-1">Saul</div>
       <div class="d-flex f-end">
         <div>
-          <q-btn icon="cached" size="sm" dense flat color="primary"></q-btn>
+          <q-btn
+            icon="cached"
+            size="sm"
+            dense
+            flat
+            color="primary"
+            @click="onRefresh"
+          ></q-btn>
         </div>
         <div class="msg-sent-con bg-pink1 px-3 py-2 bdrs-8 fz-16">
           <div>{{ text }}</div>
@@ -57,9 +64,12 @@ export default {
     };
   },
   methods: {
+    onRefresh() {
+      this.$bus.emit("refresh-chat", this.rowId);
+    },
     async onDel() {
       try {
-        await this.$confirm("Are you sure to delete this message?");
+        // await this.$confirm("Are you sure to delete this message?");
         this.$store.commit("updateChatLog", {
           id: this.rowId,
           content: "del-" + this.text,

@@ -3,10 +3,9 @@
     <template v-for="it in showChatLogs" :key="it.id">
       <msg-item
         v-if="it.model"
-        :rowId="it.id"
+        :info="it"
         :modelId="it.model"
         :text="getText(it)"
-        :info="it"
       />
       <msg-sent v-else :rowId="it.id" :modelId="it.model" :text="it.content" />
     </template>
