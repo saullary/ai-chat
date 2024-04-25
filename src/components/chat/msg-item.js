@@ -11,11 +11,7 @@ export default {
       beginAt: null,
     };
   },
-  watch: {
-    lastChatId(val) {
-      // if (!val) this.mySSE?.close();
-    },
-  },
+  watch: {},
   methods: {
     onErr(msg) {
       this.resMsg = msg;
@@ -25,6 +21,7 @@ export default {
       this.setContent(content);
       this.resMsg = "";
       this.streaming = false;
+      this.mySSE = null;
       this.setDone();
     },
     setDone() {
@@ -34,6 +31,9 @@ export default {
     },
     fetchAi() {
       try {
+        if (this.mySSE) {
+          // this.mySSE.close();
+        }
         this.streaming = true;
         this.tokenNum = 0;
         this.beginAt = Date.now();

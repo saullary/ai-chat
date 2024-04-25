@@ -62,7 +62,7 @@ export default {
     }),
     userName() {
       const { uid = "", username } = this.userInfo;
-      return username || uid.cutStr(4, 4);
+      return (username || uid).cutStr(4, 4);
     },
   },
   created() {

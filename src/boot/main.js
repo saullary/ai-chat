@@ -7,11 +7,9 @@ import Components from "../components";
 const { VITE_HOME_URL } = import.meta.env;
 
 export default boot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
-
   const global = app.config.globalProperties;
 
-  global.$inDev = /localhost/.test(location.host);
+  global.$inDev = !/dashboard/.test(VITE_HOME_URL);
   global.$http = api;
 
   global.$setState = setState;
