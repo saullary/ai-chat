@@ -31,6 +31,7 @@ const store = createStore({
     showProgress: false,
     checkModelIds: [],
     jobModelIds: [],
+    configModelId: null, // for settings
   },
   getters: {},
   mutations: {

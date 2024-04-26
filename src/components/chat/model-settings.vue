@@ -1,13 +1,18 @@
 <template>
-  <div class="h-flex h100p">
+  <div class="h-flex h100p" v-if="curItem">
     <div class="pa-3 bdb-1 bg-pink0">
       <div class="al-c">
         <jazz-icon hash="test" :size="30"></jazz-icon>
-        <span class="fz-15 ml-2">ChatGPT3.5</span>
+        <span class="fz-15 ml-2">{{ curItem.name }}</span>
 
-        <div class="ml-auto pr-2 bg-white bdrs-6 al-c">
-          <q-toggle v-model="checked" size="xs" />
-          <img src="/img/settings2.svg" width="20" class="hover-1 ml-1" />
+        <div class="ml-auto pr-2- bg-white- bdrs-6 al-c">
+          <!-- <q-toggle v-model="checked" size="xs" /> -->
+          <img
+            src="/img/settings2.svg"
+            width="20"
+            class="hover-1 ml-1"
+            @click="onBack"
+          />
         </div>
       </div>
     </div>
@@ -69,13 +74,31 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
+  computed: {
+    ...mapState({
+      aiModels: (s) => s.aiModels,
+      configModelId: (s) => s.configModelId,
+    }),
+    curItem() {
+      return this.aiModels.find((it) => it.id == this.configModelId);
+    },
+  },
   data() {
     return {
       checked: false,
       standard: 10,
       val: "10",
     };
+  },
+  methods: {
+    onBack() {
+      this.$setState({
+        configModelId: null,
+      });
+    },
   },
 };
 </script>

@@ -25,8 +25,8 @@ import MainHeader from "./main-header.vue";
         :breakpoint="900"
         style="background: #f8f3fe"
       >
-        <model-list />
-        <!-- <model-settings /> -->
+        <model-list v-show="!configModelId" />
+        <model-settings v-show="!!configModelId" />
       </q-drawer>
 
       <q-page-container>
@@ -62,7 +62,7 @@ export default {
   computed: {
     ...mapState({
       token: (s) => s.loginData.token,
-      // userInfo: (s) => s.userInfo,
+      configModelId: (s) => s.configModelId,
     }),
   },
   mounted() {

@@ -84,7 +84,7 @@ async function handleError(status, config, data) {
   }
   // console.log(data);
   if (status == 401) {
-    location.href = VITE_HOME_URL + "/ai-rpc?tab=Models&act=login";
+    location.href = VITE_HOME_URL + "/quick-login?type=chat";
   } else if (!config.noTip) {
     let msg = data.msg || "Unknown error";
     if (msg.length < 50) window.$toast(msg);

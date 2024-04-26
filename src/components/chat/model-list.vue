@@ -108,7 +108,7 @@
               src="/img/settings.svg"
               width="20"
               class="hover-1 mr-1"
-              @click="$toast('In dev')"
+              @click="onConfig(it)"
             />
           </div>
         </div>
@@ -193,6 +193,11 @@ export default {
           this.checked = [...this.checked, model];
         }
       }
+    },
+    onConfig(it) {
+      this.$setState({
+        configModelId: it.id,
+      });
     },
     onSelect(id) {
       const selected = [...this.selected];

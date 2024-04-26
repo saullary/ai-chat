@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-4">{{ token ? "Signed In" : "Redirecting..." }}</div>
+  <div class="pa-4">Redirecting...</div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
     }),
   },
   created() {
-    const { token } = this.$route.query;
+    const { t: token, ...query } = this.$route.query;
     if (token) {
       this.$setStore({
         loginData: {
@@ -20,9 +20,12 @@ export default {
       });
     }
     if (!this.token) {
-      location.href = this.$getHomeUrl("/ai-rpc?tab=Models&act=login");
+      location.href = this.$getHomeUrl("/quick-login?type=chat");
     } else {
-      this.$router.replace("/");
+      this.$router.replace({
+        path: "/",
+        query,
+      });
     }
   },
 };
