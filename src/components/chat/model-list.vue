@@ -41,9 +41,20 @@
             transition-show="jump-down"
             transition-hide="jump-up"
           >
+            <div class="pa-3 pb-0 tiny-input">
+              <q-input
+                v-model="searchKey"
+                outlined
+                dense
+                placeholder="Search Models"
+              ></q-input>
+            </div>
+            <div class="pa-4 ta-c" v-if="!modelGroups.length">
+              <span class="fz-14 gray">No Results</span>
+            </div>
             <q-list dense separator style="min-width: 160px">
               <template v-for="group in modelGroups" :key="group.name">
-                <div class="gray fz-12 px-4 py-2">
+                <div class="gray fz-12 px-4 py-2 mt-3">
                   {{ group.name }}
                 </div>
                 <q-item
@@ -51,7 +62,7 @@
                   :key="row.id"
                   clickable
                   :active="selected.includes(row.id)"
-                  active-class="bg-f1 gray-3"
+                  active-class="bg-f1 gray-3-"
                   @click="onSelect(row.id)"
                 >
                   <q-item-section>
@@ -116,6 +127,7 @@ export default {
       loadingModel: false,
       selected: JSON.parse(localStorage.selectedModels || "[]"),
       checked: [],
+      searchKey: "",
     };
   },
   computed: {
@@ -125,6 +137,10 @@ export default {
     modelGroups() {
       const groups = [];
       for (const row of this.aiModels) {
+        if (this.searchKey) {
+          const reg = new RegExp(this.searchKey, "i");
+          if (!reg.test(row.name)) continue;
+        }
         const { tokenizer } = row.architecture;
         let group = groups.find((it) => it.name == tokenizer);
         if (!group) {
