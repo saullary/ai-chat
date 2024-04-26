@@ -85,8 +85,7 @@ async function handleError(status, config, data) {
   // console.log(data);
   if (status == 401) {
     location.href = VITE_HOME_URL + "/ai-rpc?tab=Models&act=login";
-  }
-  if (!config.noTip) {
+  } else if (!config.noTip) {
     let msg = data.msg || "Unknown error";
     if (msg.length < 50) window.$toast(msg);
     else window.$alert(msg);
