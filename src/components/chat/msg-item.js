@@ -89,15 +89,13 @@ export default {
         source.addEventListener("error", (e) => {
           console.log(11, e);
           let msg = "Network Error";
-          try {
-            if (typeof e.data == "string") {
-              msg = e.data.trim();
-            } else {
+          if (typeof e.data == "string") {
+            try {
               const data = JSON.parse(e.data);
               msg = data.error.message || data.error.code;
+            } catch (error) {
+              msg = e.data.trim();
             }
-          } catch (error) {
-            //
           }
           this.onErr(msg);
         });
