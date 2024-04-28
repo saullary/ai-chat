@@ -10,6 +10,7 @@ export default boot(({ app }) => {
   const global = app.config.globalProperties;
 
   global.$inDev = !/dashboard/.test(VITE_HOME_URL);
+  global.$inLocal = /localhost/.test(location.host);
   global.$http = api;
 
   global.$setState = setState;

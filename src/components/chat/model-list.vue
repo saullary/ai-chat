@@ -100,14 +100,14 @@
             <span class="ml-2">{{ it.name }}</span>
           </div>
           <div
-            class="y-center right-0 mr-3 pr-1 bg-white bdrs-6 al-c hover-show"
+            class="y-center right-0 mr-3 pr-10 bg-white bdrs-6 al-c hover-show"
           >
             <q-toggle v-model="checked" :val="it.id" size="sm" />
             <img
-              v-show="$inDev"
+              v-show="$inLocal"
               src="/img/settings.svg"
               width="20"
-              class="hover-1 mr-1"
+              class="hover-1 mr-2"
               @click="onConfig(it)"
             />
           </div>

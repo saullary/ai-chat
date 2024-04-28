@@ -12,8 +12,15 @@ export default {
     };
   },
   watch: {},
+  created() {
+    this.rechargeUrl = this.$getHomeUrl("/billing/deposit");
+  },
   methods: {
     onErr(msg) {
+      if (msg == "Balance not enough.") {
+        msg = `Insufhcient LAND, please recharge LAND in [Dashboard](${this.rechargeUrl})`;
+        // this.onRecharge();
+      }
       this.resMsg = msg;
       this.outputMsg(msg);
     },
@@ -28,6 +35,19 @@ export default {
       // this.$setState({
       //   finishModels: [...this.finishModels, this.model],
       // });
+    },
+    async onRecharge() {
+      try {
+        await this.$confirm(
+          "Insufhcient LAND, please recharge LAND in Dashboard",
+          {
+            okLabel: "Deposit LAND",
+          }
+        );
+        window.open(this.rechargeUrl);
+      } catch (error) {
+        //
+      }
     },
     closeAi() {
       if (this.mySSE) {
@@ -67,9 +87,12 @@ export default {
           }
         });
         source.addEventListener("error", (e) => {
+          console.log(11, e);
           let msg = "Network Error";
           try {
-            if (e.data) {
+            if (typeof e.data == "string") {
+              msg = e.data.trim();
+            } else {
               const data = JSON.parse(e.data);
               msg = data.error.message || data.error.code;
             }

@@ -65,9 +65,16 @@ export default {
       });
     };
     window.$confirm = (message, opts) => {
+      if (opts.okLabel) {
+        opts.ok = {
+          label: opts.okLabel,
+          color: "primary",
+          flat: false,
+        };
+      }
       return new Promise((resolve, reject) => {
         $q.dialog({
-          title: "Confirm",
+          title: "Notice",
           color: "primary",
           message,
           cancel: true,
