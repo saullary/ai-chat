@@ -37,7 +37,7 @@
           v-if="!keyList.length"
           @click="goApiManage"
         >
-          <q-item-section> Add API Key </q-item-section>
+          <q-item-section> Create API Key </q-item-section>
         </q-item>
       </q-list>
     </q-menu>
@@ -85,9 +85,12 @@ export default {
           keyList: data.items,
         });
         let apiKey = this.apiKey;
-        if (this.keyList.length) {
+        if (apiKey) {
           const isIn = this.keyList.find((it) => it.key == apiKey);
-          if (!isIn) apiKey = this.keyList[0].key;
+          if (!isIn) apiKey = "";
+        }
+        if (!apiKey) {
+          apiKey = this.keyList[0]?.key || "";
         }
         this.setKey(apiKey);
         if (!apiKey) this.tipKey();
@@ -97,12 +100,7 @@ export default {
     },
     tipKey() {
       this.$confirm("API Key required", {
-        title: "Notice",
-        ok: {
-          label: "Create",
-          color: "primary",
-          flat: false,
-        },
+        okLabel: "Create",
       }).then(() => {
         this.goApiManage();
       });

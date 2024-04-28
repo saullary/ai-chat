@@ -12,13 +12,16 @@ export default {
     };
   },
   watch: {},
-  created() {
-    this.rechargeUrl = this.$getHomeUrl("/billing/deposit");
-  },
+  created() {},
   methods: {
     onErr(msg) {
+      if (msg == "Key not found.") {
+        const url = this.$getHomeUrl("/ai-rpc?tab=Keys");
+        msg = `API Key required, please create it in [Dashboard](${url})`;
+      }
       if (msg == "Balance not enough.") {
-        msg = `Insufhcient LAND, please recharge LAND in [Dashboard](${this.rechargeUrl})`;
+        const url = this.$getHomeUrl("/billing/deposit");
+        msg = `Insufhcient LAND, please recharge LAND in [Dashboard](${url})`;
         // this.onRecharge();
       }
       this.resMsg = msg;
